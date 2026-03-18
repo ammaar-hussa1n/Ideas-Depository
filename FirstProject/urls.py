@@ -21,5 +21,9 @@ from home.views import *
 urlpatterns = [
     path('submit-idea/', idea_submit , name='idea_submit'),
     path('', home , name='home'),
+    path('view-idea/<int:id>/', view_idea , name='view_idea'),
+    path('login/', login_page , name='login'),
+    path('register/', register_page , name='register'),
+    path('logout/', logout_page , name='logout'),
     path('admin/', admin.site.urls),
 ]
