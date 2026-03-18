@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.utils.http import url_has_allowed_host_and_scheme
 
 @login_required(login_url='login')
 def idea_submit(request):
@@ -45,7 +46,11 @@ def view_idea(request, id):
     return render(request, "home/view_idea.html", context)
 
 def login_page(request):
+    next_url = request.POST.get("next") or request.GET.get("next")
+
     if request.user.is_authenticated:
+        if next_url and url_has_allowed_host_and_scheme(next_url, allowed_hosts={request.get_host()}):
+            return redirect(next_url)
         return redirect("home")
 
     if request.method == "POST":
@@ -55,17 +60,22 @@ def login_page(request):
 
         if not username or not password:
             messages.error(request, "Please enter both username and password.")
-            return redirect("login")
+            return render(request, "home/login.html", {"next": next_url})
 
         user = authenticate(username=username, password=password)
         if user is None:
             messages.error(request, "Invalid username or password!")
-            return redirect("login")
+            return render(request, "home/login.html", {"next": next_url})
         else:
             login(request, user)
+            if next_url and url_has_allowed_host_and_scheme(next_url, allowed_hosts={request.get_host()}):
+                return redirect(next_url)
             return redirect("home")
 
-    return render(request, "home/login.html")
+    if next_url == "/submit-idea/":
+        messages.error(request, "You need to be logged in to submit an idea.")
+
+    return render(request, "home/login.html", {"next": next_url})
 
 def register_page(request):
     if request.method == "POST":
@@ -96,4 +106,4 @@ def logout_page(request):
         messages.success(request, "You have been logged out successfully.")
         return redirect("login")
 
-    return redirect("home")
+    return redirect("login")

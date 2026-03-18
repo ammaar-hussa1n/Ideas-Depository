@@ -21,6 +21,9 @@
 <div class="container mt-5">
     <form class="col-6 mx-auto card p-3 shadow-lg" method="post">
         {% csrf_token %}
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}">
+        {% endif %}
         <h2>Login</h2>
         <hr>
         {% if messages %}
