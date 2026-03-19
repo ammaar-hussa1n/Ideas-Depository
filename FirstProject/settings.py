@@ -19,7 +19,7 @@ SECRET_KEY = '6letb$b6^so97@5s7matalic122a%ig7w_**$&ry+x@95y*kyw&0n^wtd'
 DEBUG = True  # keep True temporarily to test your site
 
 # Allowed hosts
-ALLOWED_HOSTS = ['ammaarhussain.pythonanywhere.com', 'www.ammaarhussain.pythonanywhere.com']
+ALLOWED_HOSTS = ["IdeasDepository.pythonanywhere.com"]
 
 # Application definition
 INSTALLED_APPS = [
