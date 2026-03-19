@@ -30,7 +30,7 @@ if not SECRET_KEY:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "https://ammaarhussain.pythonanywhere.com/"]
 
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
@@ -133,6 +133,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 SECURE_SSL_REDIRECT = False
 SECURE_HSTS_SECONDS = 0
