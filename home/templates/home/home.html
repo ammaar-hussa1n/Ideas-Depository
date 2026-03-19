@@ -24,11 +24,25 @@
         box-shadow: 0 18px 50px rgba(0, 0, 0, 0.72) !important;
         margin: 15px;
     }
+
+    .bottom-contact-nav {
+        background-color: #0d6efd;
+    }
+
+    .bottom-contact-nav a {
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .bottom-contact-nav a:hover {
+        text-decoration: underline;
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-5 mb-4">
     <div class="card shadow-lg">
         <div class="card-header bg-primary text-white">
             <h4 class="mb-0">Submitted Ideas</h4>
@@ -38,22 +52,22 @@
                 <table class="table table-striped table-hover align-middle">
                     <thead class="table-dark">
                         <tr>
-                            <th>#</th>
-                            <th>Idea Title</th>
-                            <th>Idea Description</th>
-                            <th>Uploaded Time</th>
-                            <th>Actions</th>
+                            <th style="text-align: center;">#</th>
+                            <th style="text-align: center;">Idea Title</th>
+                            <th style="text-align: center;">Idea Description</th>
+                            <th style="text-align: center;">Uploaded Time</th>
+                            <th style="text-align: center;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for idea in ideas %}
                         <tr>
                             <th>{{ forloop.counter }}.</th>
-                            <td><strong>{{ idea.idea_title }}</strong></td>
-                            <td>{{ idea.idea_description|truncatechars:87 }}</td>
-                            <td>{{ idea.idea_time|date:"M d, Y H:i" }}</td>
-                            <td>
-                                <a href="{% url 'view_idea' idea.id %}" class="btn btn-sm btn-info m-2">View</a>
+                            <td><strong>{{ idea.idea_title|truncatechars:26 }}</strong></td>
+                            <td>{{ idea.idea_description|truncatechars:83 }}</td>
+                            <td style="text-align: center;">{{ idea.idea_time|date:"M d, Y" }} | {{ idea.idea_time|date:"h:i A" }}</td>
+                            <td class="text-center">
+                                <a href="{% url 'view_idea' idea.id %}" class="btn btn-sm btn-success m-2">View</a>
                             </td>
                         </tr>
                         {% empty %}
@@ -69,4 +83,12 @@
         </div>
     </div>
 </div>
+
+<nav class="navbar bottom-contact-nav p-3 shadow-lg mt-auto">
+    <div class="container d-flex justify-content-center gap-4 py-2">
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ammaardxb@gmail.com" target="_blank" rel="noopener noreferrer">Gmail : ammaardxb@gmail.com</a>
+        <span class="text-white">|</span>
+        <a href="https://www.linkedin.com/in/ammaar-hussain/" target="_blank" rel="noopener noreferrer">LinkedIn : ammaar-hussain</a>
+    </div>
+</nav>
 {% endblock %}

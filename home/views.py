@@ -48,6 +48,9 @@ def view_idea(request, id):
 def login_page(request):
     next_url = request.POST.get("next") or request.GET.get("next")
 
+    if not username or not password:
+        messages.error(request, "All fields are required!")
+
     if request.user.is_authenticated:
         if next_url and url_has_allowed_host_and_scheme(next_url, allowed_hosts={request.get_host()}):
             return redirect(next_url)
@@ -57,10 +60,6 @@ def login_page(request):
         data = request.POST
         username = data.get("username")
         password = data.get("password")
-
-        if not username or not password:
-            messages.error(request, "Please enter both username and password.")
-            return render(request, "home/login.html", {"next": next_url})
 
         user = authenticate(username=username, password=password)
         if user is None:
