@@ -1,2 +1,3 @@
 # Ideas-Depository
-Upload any of your idea(s) for the world to see.
+
+Live Link -> [ideasdepository.pythonanywhere.com](https://ideasdepository.pythonanywhere.com/)
